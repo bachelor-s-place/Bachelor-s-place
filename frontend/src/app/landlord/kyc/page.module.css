@@ -1,0 +1,144 @@
+.container {
+  max-width: 800px;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.header {
+  margin-bottom: 2.5rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.card {
+  background: var(--surface-2);
+  border: 0.5px solid var(--glass-border);
+  border-radius: var(--r-md);
+  padding: 2.5rem;
+  backdrop-filter: var(--blur-2);
+  -webkit-backdrop-filter: var(--blur-2);
+  box-shadow: var(--glass-highlight), var(--shadow-sm);
+}
+
+.statusBanner {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  border-radius: var(--r-md);
+  background: var(--glass-bg);
+  border: 0.5px solid var(--glass-border);
+  margin-bottom: 2rem;
+}
+
+.icon {
+  font-size: 1.5rem;
+}
+
+.statusBanner h3 {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.statusBanner p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.success {
+  background: var(--success-tint);
+  border-color: var(--accent);
+}
+
+.warning {
+  background: var(--warning-tint);
+  border-color: var(--warning-border);
+}
+
+.error {
+  background: var(--danger-tint);
+  border-color: var(--danger-border);
+}
+
+.notes {
+  margin-top: 0.5rem;
+  font-style: italic;
+  color: var(--danger) !important;
+}
+
+.date {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formTitle {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  padding-top: 1rem;
+  border-top: 0.5px solid var(--divider);
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputGroup label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.inputGroup input {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--r-sm);
+  padding: 0.85rem 1rem;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: border-color var(--dur-fast), background var(--dur-fast), box-shadow var(--dur-fast);
+  outline: none;
+}
+
+.inputGroup input:focus {
+  background: var(--input-bg-focus);
+  border-color: var(--input-border-focus);
+  box-shadow: var(--focus-ring);
+}
+
+.errorMessage {
+  padding: 0.75rem;
+  background: var(--danger-tint);
+  border: 0.5px solid var(--danger-border);
+  border-radius: var(--r-sm);
+  color: var(--danger);
+  font-size: 0.85rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

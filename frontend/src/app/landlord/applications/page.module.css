@@ -1,0 +1,141 @@
+.container {
+  min-height: calc(100dvh - 80px);
+  padding: 2rem;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+.applicationsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--surface-2);
+  border: 0.5px solid var(--glass-border);
+  border-radius: var(--r-md);
+  padding: 1.5rem;
+  backdrop-filter: var(--blur-2);
+  -webkit-backdrop-filter: var(--blur-2);
+  box-shadow: var(--glass-highlight), var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--dur-base) var(--ease-glass),
+              border-color var(--dur-base), box-shadow var(--dur-base);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--glass-border-strong);
+  box-shadow: var(--glass-highlight-strong), var(--shadow);
+  background: var(--glass-bg-hover);
+}
+
+.propertyTag {
+  align-self: flex-start;
+  background: var(--accent-tint-strong);
+  color: var(--accent-hover);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--r-pill);
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.squadName {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+}
+
+.meta {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0 0 1.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.acceptBtn, .rejectBtn {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: var(--r-sm);
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+
+.acceptBtn {
+  background: var(--success-tint);
+  color: var(--success);
+  border: 0.5px solid var(--success-border);
+}
+
+.acceptBtn:hover:not(:disabled) {
+  background: var(--success-border);
+}
+
+.rejectBtn {
+  background: var(--danger-tint);
+  color: var(--danger);
+  border: 0.5px solid var(--danger-border);
+}
+
+.rejectBtn:hover:not(:disabled) {
+  background: var(--danger-border);
+}
+
+.acceptBtn:disabled, .rejectBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.centerState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--accent-tint);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

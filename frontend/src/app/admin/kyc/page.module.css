@@ -1,0 +1,169 @@
+.page { max-width: 1100px; }
+
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle { font-size: 0.85rem; color: var(--text-secondary); }
+
+.stats { display: flex; gap: 1rem; align-items: center; }
+
+.stat {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--warning);
+  background: var(--warning-tint);
+  border: 0.5px solid var(--warning-border);
+  border-radius: var(--r-xs);
+  padding: 0.35rem 0.75rem;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.loading { color: var(--text-secondary); font-size: 0.9rem; padding: 2rem 0; }
+
+.emptyState { text-align: center; padding: 4rem 2rem; color: var(--text-secondary); }
+.emptyIcon { font-size: 2.5rem; margin-bottom: 1rem; }
+.emptyState h3 { color: var(--text-primary); margin-bottom: 0.5rem; }
+.emptyState p { font-size: 0.85rem; }
+
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: var(--r-md);
+  border: 0.5px solid var(--glass-border);
+  background: var(--surface-2);
+  backdrop-filter: var(--blur-2);
+  -webkit-backdrop-filter: var(--blur-2);
+  box-shadow: var(--glass-highlight), var(--shadow-sm);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.table thead { background: var(--glass-bg); }
+
+.table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 0.5px solid var(--divider);
+  white-space: nowrap;
+}
+
+.row {
+  border-bottom: 0.5px solid var(--divider);
+  transition: background var(--dur-fast);
+}
+.row:last-child { border-bottom: none; }
+.row:hover { background: var(--glass-bg); }
+
+.table td {
+  padding: 0.875rem 1rem;
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.nameCell { display: flex; align-items: center; gap: 0.625rem; }
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--accent-tint-strong);
+  border: 0.5px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-hover);
+  font-size: 0.75rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.userName { font-weight: 500; }
+.emailCell { color: var(--text-secondary); font-size: 0.8rem; }
+.dateCell {
+  color: var(--text-secondary);
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--r-xs);
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.pending { background: var(--warning-tint); color: var(--warning); border: 0.5px solid var(--warning-border); }
+.verified { background: var(--success-tint); color: var(--success); border: 0.5px solid var(--accent); }
+.rejected { background: var(--danger-tint); color: var(--danger); border: 0.5px solid var(--danger-border); }
+
+.notesInput {
+  width: 180px;
+  padding: 0.4rem 0.6rem;
+  background: var(--input-bg);
+  border: 0.5px solid var(--input-border);
+  border-radius: var(--r-xs);
+  color: var(--text-primary);
+  font-size: 0.78rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color var(--dur-fast), background var(--dur-fast), box-shadow var(--dur-fast);
+}
+.notesInput:focus { background: var(--input-bg-focus); border-color: var(--input-border-focus); box-shadow: var(--focus-ring); }
+.notesInput::placeholder { color: var(--input-placeholder); }
+
+.actions { display: flex; gap: 0.4rem; align-items: center; }
+
+.btnApprove, .btnReject {
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--r-xs);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 0.5px solid transparent;
+  transition: background var(--dur-fast), color var(--dur-fast);
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.btnApprove {
+  background: var(--success-tint);
+  color: var(--success);
+  border-color: var(--success-border);
+}
+.btnApprove:hover:not(:disabled) { background: var(--success-border); }
+
+.btnReject {
+  background: var(--danger-tint);
+  color: var(--danger);
+  border-color: var(--danger-border);
+}
+.btnReject:hover:not(:disabled) { background: var(--danger-border); }
+
+.btnApprove:disabled, .btnReject:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.resolved { font-size: 0.8rem; color: var(--text-secondary); }

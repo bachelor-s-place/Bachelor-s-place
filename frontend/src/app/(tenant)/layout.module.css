@@ -1,0 +1,66 @@
+.layout {
+  display: flex;
+  min-height: 100dvh;
+  padding-top: var(--navbar-height); /* Clear the fixed public navbar */
+}
+
+.sidebar {
+  width: 260px;
+  background: var(--surface-1);
+  border-right: 0.5px solid var(--glass-border);
+  backdrop-filter: var(--blur-2);
+  -webkit-backdrop-filter: var(--blur-2);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: var(--navbar-height);
+  bottom: 0;
+  left: 0;
+}
+
+.sidebarHeader {
+  padding: 1.5rem 1rem 1rem;
+  border-bottom: 0.5px solid var(--divider);
+}
+
+.sidebarLogo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.logoIcon {
+  font-size: 1.25rem;
+}
+
+.logoText {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.mainContent {
+  flex: 1;
+  margin-left: 260px;
+  min-height: calc(100dvh - var(--navbar-height));
+  /* The children will handle their own padding, so we don't force padding here */
+}
+
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 0.5px solid var(--glass-border);
+  }
+  
+  .mainContent {
+    margin-left: 0;
+  }
+}

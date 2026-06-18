@@ -1,0 +1,288 @@
+.container {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  padding-top: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.loginCard {
+  width: 100%;
+  max-width: 420px;
+  /* Premium Apple Frosted Panel - richer backing in dark mode to block bright WebGL background */
+  background: var(--surface-3);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-xl);
+  padding: 2.75rem 2.5rem;
+  backdrop-filter: var(--blur-3);
+  -webkit-backdrop-filter: var(--blur-3);
+  box-shadow: var(--glass-highlight-strong), var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  opacity: 0;
+  animation: fadeUp var(--dur-enter) var(--ease-glass) forwards;
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--glass-bg);
+  padding: var(--space-1);
+  border-radius: var(--r-md);
+  margin-bottom: 1rem;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: var(--space-3);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: background var(--dur-fast), color var(--dur-fast),
+              box-shadow var(--dur-base) var(--ease-glass);
+}
+
+.tab.active {
+  background: var(--btn-secondary-bg);
+  color: var(--text-primary);
+  box-shadow: var(--glass-highlight), var(--shadow-sm);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.85rem;
+  color: var(--text-primary); /* Highly readable label */
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.input {
+  /* Solidified inputs so shader colors don't bleed through and wash out text */
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  padding: 0.85rem 1.1rem;
+  border-radius: var(--r-md);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color var(--dur-fast), background var(--dur-fast), box-shadow var(--dur-fast);
+  font-family: var(--font-inter);
+}
+
+.input::placeholder {
+  color: var(--input-placeholder); /* Highly readable placeholder */
+}
+
+select.input {
+  color-scheme: dark;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23ffffff' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+[data-theme="light"] select.input {
+  color-scheme: light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231c1c1e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+}
+
+.input:focus {
+  background: var(--input-bg-focus);
+  border-color: var(--input-border-focus);
+  box-shadow: var(--focus-ring);
+}
+
+select.input:focus {
+  border-color: var(--input-border-focus);
+}
+
+.submitBtn {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-color);
+  padding: 0.9rem;
+  border-radius: var(--r-md);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: transform var(--dur-base) var(--ease-glass),
+              box-shadow var(--dur-base) var(--ease-glass),
+              background var(--dur-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  margin: 0.5rem 0;
+  font-weight: 500;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--divider);
+}
+
+.divider:not(:empty)::before {
+  margin-right: .5em;
+}
+
+.divider:not(:empty)::after {
+  margin-left: .5em;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1.25rem;
+    padding-top: 80px;
+  }
+
+  .loginCard {
+    padding: 2.25rem 1.5rem;
+    border-radius: var(--r-lg);
+  }
+
+  .title {
+    font-size: 1.45rem;
+  }
+}
+
+/* ── Premium Asymmetrical Brand Glass Container ─────────────── */
+.brandContainer {
+  align-self: center;
+  margin-bottom: 1.5rem;
+  padding: 0.65rem 1.75rem;
+  background: var(--glass-bg);
+  border: 0.5px solid var(--glass-border-strong);
+  backdrop-filter: var(--blur-1);
+  -webkit-backdrop-filter: var(--blur-1);
+  box-shadow: var(--glass-highlight), var(--shadow-sm), 0 0 15px var(--accent-glow);
+  border-radius: var(--r-xl) var(--r-sm) var(--r-xl) var(--r-sm); /* Unique premium asymmetrical shape! */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background var(--dur-fast), border-color var(--dur-fast),
+              transform var(--dur-base) var(--ease-glass),
+              box-shadow var(--dur-base) var(--ease-glass);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.brandContainer:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-strong);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--glass-highlight-strong), var(--shadow), 0 0 20px var(--accent-glow);
+}
+
+.brandLogo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: var(--font-inter), sans-serif;
+  filter: drop-shadow(0 2px 8px var(--accent-glow));
+}
+
+/* ── Premium Floating Back-Home Action Pill ─────────────────── */
+.backButton {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.15rem;
+  border-radius: var(--r-pill);
+  background: var(--glass-bg);
+  border: 0.5px solid var(--glass-border);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  backdrop-filter: var(--blur-1);
+  -webkit-backdrop-filter: var(--blur-1);
+  box-shadow: var(--glass-highlight), var(--shadow-sm);
+  transition: background var(--dur-fast), border-color var(--dur-fast),
+              transform var(--dur-base) var(--ease-glass),
+              box-shadow var(--dur-base) var(--ease-glass);
+  cursor: pointer;
+}
+
+.backButton:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-strong);
+  transform: translateX(-3px);
+  box-shadow: var(--glass-highlight-strong), var(--shadow);
+}
+
+@media (max-width: 768px) {
+  .backButton {
+    top: 1.25rem;
+    left: 1.25rem;
+    padding: 0.45rem 0.95rem;
+    font-size: 0.8rem;
+  }
+}

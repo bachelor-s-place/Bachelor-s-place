@@ -1,0 +1,15 @@
+# Go build cache (auto-generated, must never be committed)
+.gocache/
+
+# Dev server logs
+*-dev.out.log
+*-dev.err.log
+
+# Local build artifacts and runtime logs
+go-backend/bin/
+backend-restart.*.log
+
+# Redesign scratch + installed skill packs
+.redesign-direction.md
+.agents/
+skills-lock.json
