@@ -33,7 +33,7 @@ func (r *UserRepo) CreateUser(ctx context.Context, u *user.User) (string, error)
 			name, email, password_hash, role, gender,
 			lifestyle_tags, preferred_localities
 		)
-		VALUES ($1, $2, $3, $4, $5, $6, $7)
+		VALUES ($1, $2, $3, $4::user_role, $5::gender_type, $6, $7)
 		RETURNING id`
 
 	var id string
@@ -60,9 +60,9 @@ func (r *UserRepo) CreateUser(ctx context.Context, u *user.User) (string, error)
 // Returns user.ErrUserNotFound when no row matches.
 func (r *UserRepo) GetUserByEmail(ctx context.Context, email string) (*user.User, error) {
 	const query = `
-		SELECT id, name, email, password_hash, role, gender,
-		       lifestyle_tags, preferred_localities,
-		       bio, budget_min, budget_max, pending_embeddings,
+		SELECT id, name, email, password_hash, role::text, gender::text,
+		       COALESCE(lifestyle_tags, '{}'), COALESCE(preferred_localities, '{}'),
+		       bio, budget_min::float8, budget_max::float8, pending_embeddings,
 		       is_active, created_at, updated_at,
 		       phone_encrypted, whatsapp_encrypted
 		FROM   users
@@ -76,9 +76,9 @@ func (r *UserRepo) GetUserByEmail(ctx context.Context, email string) (*user.User
 // Returns user.ErrUserNotFound when no row matches.
 func (r *UserRepo) GetUserByID(ctx context.Context, id string) (*user.User, error) {
 	const query = `
-		SELECT id, name, email, password_hash, role, gender,
-		       lifestyle_tags, preferred_localities,
-		       bio, budget_min, budget_max, pending_embeddings,
+		SELECT id, name, email, password_hash, role::text, gender::text,
+		       COALESCE(lifestyle_tags, '{}'), COALESCE(preferred_localities, '{}'),
+		       bio, budget_min::float8, budget_max::float8, pending_embeddings,
 		       is_active, created_at, updated_at,
 		       phone_encrypted, whatsapp_encrypted
 		FROM   users

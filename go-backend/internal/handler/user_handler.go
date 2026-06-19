@@ -11,6 +11,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-playground/validator/v10"
+	"github.com/rs/zerolog/log"
 )
 
 // UserHandler handles user profile HTTP requests.
@@ -30,13 +31,17 @@ func NewUserHandler(svc *user.Service) *UserHandler {
 // GetProfile handles GET /api/v1/users/me
 func (h *UserHandler) GetProfile(w http.ResponseWriter, r *http.Request) {
 	userID := middleware.UserIDFromContext(r.Context())
+	
+	log.Info().Str("user_id", userID).Msg("GetProfile: fetching user from DB")
 
 	u, err := h.svc.GetUserByID(r.Context(), userID)
 	if err != nil {
+		log.Error().Err(err).Msg("GetProfile: GetUserByID failed")
 		respond.Error(w, user.ToAPIError(err))
 		return
 	}
 
+	log.Info().Str("user_id", u.ID).Msg("GetProfile: fetch successful, encoding JSON")
 	respond.JSON(w, http.StatusOK, u)
 }
 
