@@ -6,6 +6,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/rs/zerolog/log"
 )
@@ -61,7 +62,10 @@ func (w *Worker) processPending(ctx context.Context) {
 		ORDER BY embedding_next_attempt_at ASC NULLS FIRST
 		LIMIT 5`
 
-	rows, err := w.pool.Query(ctx, findQuery, maxEmbeddingAttempts)
+	// QueryExecModeSimpleProtocol bypasses pgx's prepared-statement cache.
+	// Without it, the pool recycles connections that already have this statement
+	// prepared, causing SQLSTATE 42P05 (duplicate_prepared_statement) on every tick.
+	rows, err := w.pool.Query(ctx, findQuery, pgx.QueryExecModeSimpleProtocol, maxEmbeddingAttempts)
 	if err != nil {
 		log.Error().Err(err).Msg("failed to query pending users")
 		return
@@ -118,7 +122,7 @@ func (w *Worker) processPending(ctx context.Context) {
 			    embedding_next_attempt_at = NULL
 			WHERE id = $2`
 
-		if _, err := w.pool.Exec(ctx, updateQuery, vectorStr, p.id); err != nil {
+		if _, err := w.pool.Exec(ctx, updateQuery, pgx.QueryExecModeSimpleProtocol, vectorStr, p.id); err != nil {
 			w.recordFailure(ctx, p.id, err)
 		} else {
 			log.Info().Str("user_id", p.id).Msg("successfully updated personality embedding")
@@ -140,7 +144,7 @@ func (w *Worker) recordFailure(ctx context.Context, userID string, cause error) 
 		    pending_embeddings = (embedding_attempts + 1 < $2)
 		WHERE id = $1`
 
-	if _, err := w.pool.Exec(ctx, updateQuery, userID, maxEmbeddingAttempts); err != nil {
+	if _, err := w.pool.Exec(ctx, updateQuery, pgx.QueryExecModeSimpleProtocol, userID, maxEmbeddingAttempts); err != nil {
 		log.Error().Err(err).Str("user_id", userID).Msg("failed to record embedding failure")
 	}
 }
