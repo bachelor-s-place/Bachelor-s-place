@@ -10,6 +10,7 @@ import (
 
 	"bachelorsSpace/internal/domain/user"
 
+	"fmt"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -61,7 +62,7 @@ func (r *UserRepo) CreateUser(ctx context.Context, u *user.User) (string, error)
 func (r *UserRepo) GetUserByEmail(ctx context.Context, email string) (*user.User, error) {
 	const query = `
 		SELECT id, name, email, password_hash, role::text, gender::text,
-		       COALESCE(lifestyle_tags, '{}'), COALESCE(preferred_localities, '{}'),
+		       COALESCE(lifestyle_tags, '{}'::text[]), COALESCE(preferred_localities, '{}'::text[]),
 		       bio, budget_min::float8, budget_max::float8, pending_embeddings,
 		       is_active, created_at, updated_at,
 		       phone_encrypted, whatsapp_encrypted
@@ -77,7 +78,7 @@ func (r *UserRepo) GetUserByEmail(ctx context.Context, email string) (*user.User
 func (r *UserRepo) GetUserByID(ctx context.Context, id string) (*user.User, error) {
 	const query = `
 		SELECT id, name, email, password_hash, role::text, gender::text,
-		       COALESCE(lifestyle_tags, '{}'), COALESCE(preferred_localities, '{}'),
+		       COALESCE(lifestyle_tags, '{}'::text[]), COALESCE(preferred_localities, '{}'::text[]),
 		       bio, budget_min::float8, budget_max::float8, pending_embeddings,
 		       is_active, created_at, updated_at,
 		       phone_encrypted, whatsapp_encrypted
@@ -114,7 +115,9 @@ func (r *UserRepo) scanOne(row pgx.Row) (*user.User, error) {
 		if errors.Is(err, pgx.ErrNoRows) {
 			return nil, user.ErrUserNotFound
 		}
-		return nil, err
+		// Log the exact scan error so it shows up in Render logs
+		fmt.Printf("CRITICAL SCAN ERROR: %v\n", err)
+		return nil, fmt.Errorf("scan error: %w", err)
 	}
 	u.HasContact = u.PhoneEncrypted != nil
 	u.HasWhatsapp = u.WhatsappEncrypted != nil
